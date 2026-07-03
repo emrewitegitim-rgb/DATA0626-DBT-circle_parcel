@@ -23,6 +23,9 @@ sources:
                 description: "id of the parcel"
                 tests:
                   - not_null
+              - name: model_mame
+                tests:
+                  - dbt_utils.not_empty_string
             tests:
               - unique:
                   column_name: "(ParCEL_id || '-' || Model_mAME)" 
