@@ -1,21 +1,41 @@
 
 version: 2
 
-models:
-    - name: my_first_dbt_model
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
+sources:
+    - name: raw
+      schema: raw_data_circle
+      description: "Schema for circle dataset"
+      tables:
+          - name: parcel
+            identifier: raw_cc_parcel
+            description: "parcel details"
+            columns:
+              - name: Parcel_id
+                description: "id of the parcel"
+                tests:
+                  - not_null
+                  - unique
+            config:
+              freshness:
+                error_after:
+                  count: 24000
+                  period: day
+              loaded_at_field: "CAST(PARSE_DATE('%B %d, %Y', Date_purCHase) AS TIMESTAMP)"
+          - name: product
+            identifier: raw_cc_parcel_product
+            description: "product details in a parcel"
+            columns:
+              - name: ParCEL_id
+                description: "id of the parcel"
+                tests:
+                  - not_null
+              - name: model_mame
+                tests:
+                  - dbt_utils.not_empty_string
             tests:
-                - unique
-                - not_null
+              - unique:
+                  column_name: "(ParCEL_id || '-' || Model_mAME)" 
+                  
+             
 
-    - name: my_second_dbt_model
-      description: "A starter dbt model"
-      columns:
-          - name: id
-            description: "The primary key for this table"
-            tests:
-                - unique
-                - not_null
+
