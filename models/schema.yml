@@ -15,6 +15,12 @@ sources:
                 tests:
                   - not_null
                   - unique
+            config:
+              freshness:
+                error_after:
+                  count: 24000
+                  period: day
+              loaded_at_field: "CAST(PARSE_DATE('%B %d, %Y', Date_purCHase) AS TIMESTAMP)"
           - name: product
             identifier: raw_cc_parcel_product
             description: "product details in a parcel"
