@@ -15,6 +15,14 @@ sources:
                 tests:
                   - not_null
                   - unique
+          - name: product
+            identifier: raw_cc_parcel_product
+            description: "product details in a parcel"
+            columns:
+              - name: ParCEL_id
+                description: "id of the parcel"
+                tests:
+                  - not_null
                   
              
 
